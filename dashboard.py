@@ -71,7 +71,7 @@ def build_hover(row):
     schools = "<br>".join(row["Schools_detail"]) if isinstance(row["Schools_detail"], list) else "No data"
     return (
         f"County: {row['NAME']}<br>"
-        f"Total Pass %: {row['Pass_perct_total'] if pd.notna(row['Pass_perct_total']) else 'N/A'}<br>"
+        f"Total Pass Rate: {row['Pass_perct_total'] if pd.notna(row['Pass_perct_total']) else 'N/A'}%<br>"
         f"Schools:<br>{schools}"
     )
 
@@ -86,7 +86,7 @@ fig = go.Figure(go.Choropleth(
     text=merged["hover_text"],
     hoverinfo="text",
     colorscale="Greens",
-    zmin=80,
+    zmin=70,
     zmax=100,
     marker_line_color="black",
     marker_line_width=1.2,
@@ -95,7 +95,7 @@ fig = go.Figure(go.Choropleth(
 
 fig.update_layout(
     margin={"r":0,"t":40,"l":0,"b":0},
-    title=f"BSN-MSN NCLEX Pass % by County - {selected_year}",
+    title=f"BSN-MSN NCLEX Pass Rate - {selected_year}",
     geo=dict(
         fitbounds="locations",
         visible=True,
@@ -105,5 +105,5 @@ fig.update_layout(
 )
 
 # ========== DISPLAY ==========
-st.title("🧪 BSN-MSN NCLEX Pass Rates in Tennessee (2020–2024)")
+st.title("BSN-MSN NCLEX Pass Rates of schools in Tennessee (2020–2024)")
 st.plotly_chart(fig, use_container_width=True)
