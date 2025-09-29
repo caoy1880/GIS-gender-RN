@@ -58,6 +58,7 @@ merged = tn_counties.merge(
     left_on="NAME_clean", 
     right_on="County_clean", 
     how="left"
+)
 
 # ========== BUILD HOVER INFO ==========
 def build_hover(row):
