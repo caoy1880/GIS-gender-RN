@@ -50,7 +50,14 @@ grouped = (
 grouped["County"] = grouped["County"].str.split(',').str[0].str.strip()
 
 # ========== MERGE WITH SHAPEFILE ==========
-merged = tn_counties.merge(grouped, left_on="NAME", right_on="County", how="left")
+tn_counties["NAME_clean"] = tn_counties["NAME"].str.strip().str.lower()
+grouped["County_clean"] = grouped["County"].str.strip().str.lower()
+
+merged = tn_counties.merge(
+    grouped, 
+    left_on="NAME_clean", 
+    right_on="County_clean", 
+    how="left"
 
 # ========== BUILD HOVER INFO ==========
 def build_hover(row):
